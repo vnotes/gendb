@@ -16,41 +16,41 @@ const (
 )
 
 type userOpenIdMapColumn struct {
-	AppId     string
-	Extra     string
 	Id        string
-	IsDel     string
+	UserId    string
 	OpenId    string
 	OutOpenId string
+	AppId     string
+	Extra     string
 	SysCtime  string
 	SysUtime  string
-	UserId    string
+	IsDel     string
 }
 
 var (
 	UserOpenIdMapCol = &userOpenIdMapColumn{
-		AppId:     "app_id",
-		Extra:     "extra",
 		Id:        "id",
-		IsDel:     "is_del",
+		UserId:    "user_id",
 		OpenId:    "open_id",
 		OutOpenId: "out_open_id",
+		AppId:     "app_id",
+		Extra:     "extra",
 		SysCtime:  "sys_ctime",
 		SysUtime:  "sys_utime",
-		UserId:    "user_id",
+		IsDel:     "is_del",
 	}
 )
 
 type UserOpenIdMapEntity struct {
-	AppId     string    `db:"app_id"`
-	Extra     *string   `db:"extra"`
 	Id        int64     `db:"id"`
-	IsDel     int       `db:"is_del"`
+	UserId    string    `db:"user_id"`
 	OpenId    string    `db:"open_id"`
 	OutOpenId string    `db:"out_open_id"`
+	AppId     string    `db:"app_id"`
+	Extra     *string   `db:"extra"`
 	SysCtime  time.Time `db:"sys_ctime"`
 	SysUtime  time.Time `db:"sys_utime"`
-	UserId    string    `db:"user_id"`
+	IsDel     int       `db:"is_del"`
 }
 
 type UserOpenIdMapModel interface {

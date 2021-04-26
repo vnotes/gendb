@@ -1,10 +1,14 @@
 package model
 
 import (
+	_ "embed"
 	"html/template"
 	"log"
 	"strings"
 )
+
+//go:embed db.tmpl
+var b []byte
 
 func NewTemplateFile() *template.Template {
 	tpl, err := template.New("db.tmpl").Funcs(
@@ -13,7 +17,7 @@ func NewTemplateFile() *template.Template {
 			"snakeCase2LowerCamelCase": snakeCase2LowerCamelCase,
 			"receiverName":             receiverName,
 		},
-	).ParseFiles("db.tmpl")
+	).Parse(string(b))
 	if err != nil {
 		log.Fatal("NewTemplateFile Error", err)
 	}
