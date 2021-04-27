@@ -14,6 +14,7 @@ type Table struct {
 type TableColumn struct {
 	ColumnName string `db:"COLUMN_NAME"`
 	DataType   string `db:"DATA_TYPE"`
+	IsNullable string `db:"IS_NULLABLE"`
 }
 
 var dataType2GolangType = map[string]string{
@@ -21,5 +22,5 @@ var dataType2GolangType = map[string]string{
 	"bigint":   "int64",
 	"varchar":  "string",
 	"datetime": "time.Time",
-	"text":     "*string",
+	"text":     "string",
 }
