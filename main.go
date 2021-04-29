@@ -10,7 +10,11 @@ import (
 )
 
 func main() {
-	var tName = mysqldb.Target
+	target := os.Getenv("target")
+	if target == "" {
+		log.Fatalf("needed env table target. target=xxxoo go run main.go")
+	}
+	var tName = target
 	table, err := mysqldb.NewDatabaseTableInfo(tName)
 	if err != nil {
 		log.Fatalf("get table info error %s", err)
