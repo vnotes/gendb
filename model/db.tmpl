@@ -4,12 +4,11 @@ package model
 import (
 	"context"
 	"database/sql"
-	"github.com/jmoiron/sqlx"
 	"fmt"
 	"strings"
 	"time"
 
-	
+	"github.com/jmoiron/sqlx"	
 )
 
 {{$upperCamelCase := snakeCase2UpperCamelCase $.TableName}}
@@ -36,7 +35,7 @@ var (
 
 type {{$upperCamelCase}}Entity struct {
 	{{range $key, $value := .Columns -}}
-		{{snakeCase2UpperCamelCase $value.ColumnName}} {{$value.DataType}} `db:"{{$value.ColumnName}}"`
+		{{snakeCase2UpperCamelCase $value.ColumnName}} {{$value.DataType}} `db:"{{$value.ColumnName}}"` // {{$value.ColumnComment}}
 	{{end -}}
 }
 

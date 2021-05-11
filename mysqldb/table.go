@@ -25,7 +25,8 @@ func getTableInfo(ctx context.Context, db sqlx.ExtContext, name, schema string) 
 
 func getTableColumnInfo(ctx context.Context, db sqlx.ExtContext, name, schema string) ([]*TableColumn, error) {
 	var cols []*TableColumn
-	const s = "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE FROM information_schema.COLUMNS WHERE TABLE_NAME = ? AND TABLE_SCHEMA = ?;"
+	const s = "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_COMMENT FROM information_schema.COLUMNS " +
+		"WHERE TABLE_NAME = ? AND TABLE_SCHEMA = ?;"
 	err := sqlx.SelectContext(ctx, db, &cols, s, name, schema)
 	if err != nil {
 		return nil, err
