@@ -1,2 +1,0 @@
-# gendb
-generate table crud

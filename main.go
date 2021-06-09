@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/vnotes/gendb/model"
 	"github.com/vnotes/gendb/mysqldb"
@@ -26,6 +28,22 @@ func main() {
 		log.Fatalf("exe tpl err %s", err)
 		return
 	}
+	var targetDir string
+	if os.Getenv("type") == "2" {
+		targetDir = strings.ToLower(target) + "api"
+		if !isDirExist(targetDir) {
+			if err = os.Mkdir(targetDir, os.ModePerm); err != nil {
+				log.Fatalf("create file err %s", err)
+			}
+		}
+	} else {
+		if !isDirExist("model") {
+			if _, err = os.Create("model"); err != nil {
+				log.Fatalf("create file err %s", err)
+			}
+		}
+		targetDir = "model"
+	}
 	var tGenName = tName + "_gen.go"
 	file, err := os.Create(tGenName)
 	if err != nil {
@@ -35,4 +53,13 @@ func main() {
 	_ = file.Close()
 	model.GoFmt(tGenName)
 	model.GoImport(tGenName)
+	_ = os.Rename(tGenName, fmt.Sprintf("%s/%s", targetDir, tGenName))
+}
+
+func isDirExist(d string) bool {
+	_, err := os.Stat(d)
+	if err != nil {
+		return os.IsExist(err)
+	}
+	return true
 }
