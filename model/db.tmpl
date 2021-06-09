@@ -35,7 +35,11 @@ var (
 
 type {{$upperCamelCase}}Entity struct {
 	{{range $key, $value := .Columns -}}
-		{{snakeCase2UpperCamelCase $value.ColumnName}} {{$value.DataType}} `db:"{{$value.ColumnName}}"` // {{$value.ColumnComment}}
+			{{if $value.ColumnComment}}
+				{{snakeCase2UpperCamelCase $value.ColumnName}} {{$value.DataType}} `db:"{{$value.ColumnName}}"` // {{$value.ColumnComment}}
+			{{else}}
+				{{snakeCase2UpperCamelCase $value.ColumnName}} {{$value.DataType}} `db:"{{$value.ColumnName}}"`
+			{{end}}
 	{{end -}}
 }
 
