@@ -35,7 +35,7 @@ func main() {
 		}
 	}
 	if os.Getenv("type") == "2" {
-		targetDir = targetDir + "/" + strings.ToLower(target) + "api"
+		targetDir = targetDir + "/" + strings.ToLower(strings.ReplaceAll(target, "_", "")) + "api"
 		if !isDirExist(targetDir) {
 			if err = os.Mkdir(targetDir, os.ModePerm); err != nil {
 				log.Fatalf("create file err %s", err)

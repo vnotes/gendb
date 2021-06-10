@@ -46,7 +46,7 @@ func snakeCase2LowerCamelCase(s string) string {
 }
 
 func stringToLower(s string) string {
-	return strings.ToLower(s)
+	return strings.ToLower(strings.ReplaceAll(s, "_", ""))
 }
 
 func receiverName(s string) string {
