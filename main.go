@@ -28,21 +28,19 @@ func main() {
 		log.Fatalf("exe tpl err %s", err)
 		return
 	}
-	var targetDir string
+	var targetDir = "model"
+	if !isDirExist(targetDir) {
+		if _, err = os.Create("model"); err != nil {
+			log.Fatalf("create file err %s", err)
+		}
+	}
 	if os.Getenv("type") == "2" {
-		targetDir = strings.ToLower(target) + "api"
+		targetDir = targetDir + "/" + strings.ToLower(target) + "api"
 		if !isDirExist(targetDir) {
 			if err = os.Mkdir(targetDir, os.ModePerm); err != nil {
 				log.Fatalf("create file err %s", err)
 			}
 		}
-	} else {
-		if !isDirExist("model") {
-			if _, err = os.Create("model"); err != nil {
-				log.Fatalf("create file err %s", err)
-			}
-		}
-		targetDir = "model"
 	}
 	var tGenName = tName + "_gen.go"
 	file, err := os.Create(tGenName)

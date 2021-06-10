@@ -44,8 +44,8 @@ type Entity struct {
 }
 
 type model interface {
-	Insert(context.Context, ...map[string]interface{}) (sql.Result, error)
-	Select(context.Context, map[string]interface{}, ...string) ([]*Entity, error)
+	dbInsert(context.Context, ...map[string]interface{}) (sql.Result, error)
+	dbSelect(context.Context, map[string]interface{}, ...string) ([]*Entity, error)
 }
 
 type impl struct {
@@ -64,7 +64,7 @@ func GetCli() model {
 
 var _ model = (*impl)(nil)
 
-func (i *impl) Insert(ctx context.Context, values ...map[string]interface{}) (sql.Result, error) {
+func (i *impl) dbInsert(ctx context.Context, values ...map[string]interface{}) (sql.Result, error) {
 	if len(values) == 0 {
 		return nil, nil
 	}
@@ -82,7 +82,7 @@ func (i *impl) Insert(ctx context.Context, values ...map[string]interface{}) (sq
 	return result, nil
 }
 
-func (i *impl) Select(ctx context.Context, values map[string]interface{}, fields ...string) ([]*Entity, error) {
+func (i *impl) dbSelect(ctx context.Context, values map[string]interface{}, fields ...string) ([]*Entity, error) {
 	var result []*Entity
 
 	var s []string
